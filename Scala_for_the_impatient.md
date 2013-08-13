@@ -69,5 +69,14 @@ Array.ofDim(3, 4) // 3 rows, 4 columns
 import scala.collection.JavaConversions.bufferAsJavaList // to convert scala buffer to java list
 ```
 
+##Chapter 4 - Maps and Tuples
+######4.3. Adding/removing keys from immutables maps are not very expensive. As the maps are immutable so both new and old ones share the same underlying data.
+
+```scala
+val newMap = oldMap - "existing_key"
+```
+
+######4.5. For having keys sorted in insertion order, use `LinkedHashMap`.
+
 
 [Scala for the Impatient]: http://www.amazon.in/Scala-Impatient-Cay-S-Horstmann/dp/8131796051/ref=sr_1_1?ie=UTF8&qid=1376238658&sr=8-1&keywords=scala+for+the+impatient
