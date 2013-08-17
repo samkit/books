@@ -98,13 +98,11 @@ class Person {
 $ scalac Person.scala
 $ scala -private Person
 Compiled from "Person.scala"
-```
-```scala
 public class Person extends java.lang.Object implements scala.ScalaObject{
-private int age;
-public int age();
-public void age_$eq(int);
-public Person();
+    private int age;
+    public int age();
+    public void age_$eq(int);
+    public Person();
 }
 ```
 
@@ -200,24 +198,70 @@ package object people {     // an object named com.horstmann.impatient.people.pa
 }
 ```
 
-######7.9.
+######7.9. Imports
 1. Renaming imports.
 
-```scala
-import java.util.{HashMap => JavaHashMap}
-```
+    ```scala
+    import java.util.{HashMap => JavaHashMap}
+    ```
 
 2. Hiding imports.
 
-```scala
-import java.util.{HashMap => _, _}  // imports everything except HashMap from java.util package
-```
+    ```scala
+    import java.util.{HashMap => _, _}  // imports everything except HashMap from java.util package
+    ```
 
 ######7.10. Implicit imports.
 ```scala
 import java.lang._
-import scala._      // **special case**: it overrides previous imports like java.lang.StringBuilder with scala.StringBuilder
+import scala._      // Special case: it overrides previous imports like java.lang.StringBuilder with scala.StringBuilder
 import Predef._
 ```
+
+##Chapter 8 - Inheritance
+######8.6. A `val` or parameter-less `def` method can be overriden with a `val` in child class.
+```scala
+class Person {
+    def id: Int     // abstract
+}
+
+class Student(override val id: Int) extends Person
+```
+Rules:
+
+1. Only a `def` can override `def`.
+2. A `val` can override a `val` or parameter-less `def`.
+3. A `var` can only override an abstract `var`.
+
+######8.7. Anonymous class
+```scala
+def meet(p: Person{def greeting: String}) {
+    println(p.name + " says: " + p.greeting)
+}
+```
+
+######8.10. Construction and early access of overridden `val`.
+```scala
+class Creature {
+    val range: Int = 10
+    val env: Array[Int] = new Array[Int](range)     // Here, range == 0. Read explanation in the book.
+}
+
+class Ant extends Creature {
+    override val range = 2
+}
+```
+
+> **Note**: If you want to use `val` in constructor body then make it final.
+> **Note**: Use -Xcheckinit while compiling. This results in exception if uninitialized variables are accessed.
+
+This can be solved by doing this _ugly_ thing.
+```scala
+class Ant extends {
+    override val range = 2
+} with Creature
+```
+
+######8.12. Override `equal` and `hashCode` methods together, where ever possible. And use `lhs: Any` in `equal` method, and not the type of the same object.
 
 [Scala for the Impatient]: http://www.amazon.in/Scala-Impatient-Cay-S-Horstmann/dp/8131796051/ref=sr_1_1?ie=UTF8&qid=1376238658&sr=8-1&keywords=scala+for+the+impatient
