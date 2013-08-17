@@ -264,4 +264,29 @@ class Ant extends {
 
 ######8.12. Override `equal` and `hashCode` methods together, where ever possible. And use `lhs: Any` in `equal` method, and not the type of the same object.
 
+##Chapter 9 - Files and Regular Expressions
+######9.8. Serialization.
+```scala
+@SerialVersionUID(42L) class Person extends Serializable
+```
+> **Note**: `@SerialVersionUID` if removed, generates default UID.
+
+######9.9. Writing shell commands.
+Command | What does it does?
+--- |---
+`"ls -l" !` | Return code of the shell command
+`"ls -l" !!` | Output of shell command as a string
+`"ls -l" #| "grep something" !` | Pipe the output to another command
+`"ls -l" #> new File("output.txt") !` | Redirect output to a file
+`"ls -l" #>> new File("output.txt") !` | Redirect(append) output to a file
+`"grep sec" #< new File("output.txt") !` | Redirect input from a file
+`"grep Scala" #< new URL("http://horstmann.com/index.html") !` | Redirect input from a URL
+
+######9.11. Regular expression groups and pattern matching
+```scala
+val numitemPattern = "([0-9]+) ([a-z]+)".r
+val numitemPattern(num, item) = "99 bottles"
+// Sets num to "99", item to "bottles"
+```
+
 [Scala for the Impatient]: http://www.amazon.in/Scala-Impatient-Cay-S-Horstmann/dp/8131796051/ref=sr_1_1?ie=UTF8&qid=1376238658&sr=8-1&keywords=scala+for+the+impatient
