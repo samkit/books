@@ -276,7 +276,7 @@ Command | What does it does?
 --- |---
 `"ls -l" !` | Return code of the shell command
 `"ls -l" !!` | Output of shell command as a string
-`"ls -l" #| "grep something" !` | Pipe the output to another command
+`"ls -l" #`&#124;` "grep something" !` | Pipe the output to another command
 `"ls -l" #> new File("output.txt") !` | Redirect output to a file
 `"ls -l" #>> new File("output.txt") !` | Redirect(append) output to a file
 `"grep sec" #< new File("output.txt") !` | Redirect input from a file
