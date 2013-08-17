@@ -156,4 +156,68 @@ class OuterClass {
 }
 ```
 
+##Chapter 6 - Objects
+######6.6. Enumeration with string names.
+
+```scala
+object Color extends Enumeration {
+    val Yellow = Value(0, "Yellow")
+    val Red = Value(1, "Red")
+}
+```
+
+##Chapter 7 - Packages and Imports
+######7.2. Using absolute package names.
+```scala
+type Map = _root_.scala.collection.mutable.Map
+```
+
+######7.3. Chained package clause
+```scala
+package com.horstman.impatient {
+    // members of com, com.horstman are invisible here
+    package Utils {
+        object MathFunctions {
+        }
+    }
+}
+```
+
+######7.4. [7.3] is equivalent to top of file notation.
+```scala
+package com.horstman.impatient
+package Utils
+
+object MathFunctions {
+}
+```
+
+######7.5. Package object can be used to encapsulate free variables and free functions, which otherwise will go into a companion object. The package object is implemented as a object name `package` inside the given package.
+```scala
+package com.horstmann.impatient
+package object people {     // an object named com.horstmann.impatient.people.package is created, visible to JVM
+    val defaultName = "John Q. Public"
+}
+```
+
+######7.9.
+1. Renaming imports.
+
+```scala
+import java.util.{HashMap => JavaHashMap}
+```
+
+2. Hiding imports.
+
+```scala
+import java.util.{HashMap => _, _}  // imports everything except HashMap from java.util package
+```
+
+######7.10. Implicit imports.
+```scala
+import java.lang._
+import scala._      // **special case**: it overrides previous imports like java.lang.StringBuilder with scala.StringBuilder
+import Predef._
+```
+
 [Scala for the Impatient]: http://www.amazon.in/Scala-Impatient-Cay-S-Horstmann/dp/8131796051/ref=sr_1_1?ie=UTF8&qid=1376238658&sr=8-1&keywords=scala+for+the+impatient
