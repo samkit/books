@@ -2,7 +2,7 @@
 
 # CockroachDB
 ### [Architecture](https://www.cockroachlabs.com/docs/stable/architecture/overview.html)
-- https://github.com/cockroachdb/cockroach/blob/master/docs/design.md :fa-thumbs-up:
+- https://github.com/cockroachdb/cockroach/blob/master/docs/design.md <font size=30 color=lightgreen>:fa-thumbs-up:</font>
     ![](https://raw.githubusercontent.com/cockroachdb/cockroach/master/docs/media/architecture.png)
 
 - Globally distributed transaction
