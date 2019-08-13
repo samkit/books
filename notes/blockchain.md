@@ -1,3 +1,17 @@
+---
+presentation:
+    center: false
+#   .reveal p {
+#     text-align: left;
+#   }
+#   .reveal ul {
+#     display: block;
+#   }
+#   .reveal ol {
+#     display: block;
+#   }
+---
+
 [TOC]
 
 # Distributed Ledger Technology
@@ -41,6 +55,10 @@
 
 ##### Radix DLT
 - https://www.radixdlt.com/
+- blockchain free solution
+
+##### Quorum (from JPMC)
+- https://www.goquorum.com/
 
 #### R3 Corda
 - Designed for banks/finance usecases
@@ -112,3 +130,188 @@
 - Messaging between multiple nodes
     - Can be used to raise alerts/notifications regarding ongoing/planned issues
     - 
+
+
+# Presentation
+
+<!-- slide -->
+
+# Blockchain
+###### (a very simple study)
+
+<!-- slide -->
+
+## Distributed Ledger Technology
+- Blockchain
+- DAG based
+- Other simpler DLT
+
+<!-- slide -->
+
+# Blockchain
+![](https://crypto-beginners-media-storage.s3-ap-southeast-2.amazonaws.com/static/img/blockchain_illustration.png)
+- Consensus - PoW/PoS/BFT etc
+- Slow as it grows linearly - lot of wastage if PoW is discarded
+- Everynode has to have all blocks stored
+- Ledger is bloated with past transactions
+
+<!-- slide -->
+
+# DAG
+![](https://crypto-beginners-media-storage.s3-ap-southeast-2.amazonaws.com/static/img/dag_2.png)
+
+<!-- slide -->
+# DAG
+- Much better performance than [linear?] blockchains
+- Performance improves with time
+- Ledger bloat is still there
+
+<!-- slide -->
+
+# Sharding
+![](https://miro.medium.com/max/1400/0*6qw4xUQxY5jxMPU0)
+- Partial data with every node
+- Only few implementations have this
+    - couldn't find opensource
+
+<!-- slide -->
+
+# Hyperledger Fabric
+- [A good overview](https://medium.com/coinmonks/demystifying-hyperledger-fabric-1-3-fabric-architecture-a2fdb587f6cb)
+
+<!-- slide -->
+
+# ![R3 Corda](https://www.corda.net/wp-content/themes/corda/assets/images/crda-logo-big.svg)
+- Awesome documentation - https://docs.corda.net/
+- [Good bootcamp/kata](https://www.youtube.com/playlist?list=PLi1PppB3-YrVq5Qy_RM9Qidq0eh-nL11N)
+- Designed specifically for finance industry
+    - Permissioned / Auditable Governance
+    - P2P
+    - Easy deployability - JVM based
+    - Counterparty identification - legally provable
+
+<!-- slide -->
+## High Level Notables
+- Permissioned / Auditable governance
+- Smart Contracts
+- Distributed Apps (CorDapps)
+- Pluggable consensus
+- Scalable as there is no blockchain and is more p2p
+- Easy deployability - JVM based
+- Support for complete privacy by onlookers ==TODO(vendor)==
+
+<!-- slide -->
+###### Network
+![](https://docs.corda.net/_images/network.png)
+- Every node is indepdent and doesn't share anything unless required
+- Heavy on "need-to-know-basis" paradigm
+
+<!-- slide -->
+
+###### Ledger
+![](https://docs.corda.net/_images/ledger-venn.png)
+- Facts are shared only when necessary
+
+<!-- slide -->
+###### State
+- States are immutable facts
+- Transaction is required to change state
+- Past states are kept in db
+- Support for reference states
+    - which doesn't participate in transaction commit but can be used for validation (REG) ==TODO==
+
+<!-- slide -->
+
+###### Transaction
+- Contains earlier state reference and proposed state, along with command (i.e. action)
+- Types of transactions can be time bounded
+- Notary service is the authority to approve a transaction (distributed)
+    - Similar to "Orderer" in Hyperledger
+- Supports Smart Contracts
+    - can do validation
+- Supports Oracle - while validating if you need external state then architectural term is to use Oracle (REG?) ==TODO==
+
+<!-- slide -->
+
+###### Transaction
+![](https://docs.corda.net/_images/commands.png)
+
+<!-- slide -->
+
+###### Flows!!
+- Distributed apps running on Corda nodes
+- Can be as simple as "do this transaction"
+- Flows can have side-effects/impure - so good for complex workflows
+    - where multiple nodes talk to each other
+- Can be started by various mechanisms
+    - Via RPC/REST
+    - by other flows
+- Supports sub-flows
+- Very scalable
+
+<!-- slide -->
+###### Flow Example
+![](https://docs.corda.net/_images/flow-sequence.png)
+
+<!-- slide -->
+###### CorDapps (Distributed Apps)
+![](https://docs.corda.net/_images/node-diagram.png)
+- Are jar files
+- Consists of flows, states, commands, contracts and custom services
+
+<!-- slide -->
+
+###### Notary
+- Responsible for uniqueness as consensus
+- Can also do validation consensus based on data
+- Notaries can be configured to look at data for validity consensus
+    - otherwise notaries don't see the data in messages
+    - hence are scalable
+- Horizontally scalable
+- Multiple notary clusters can run different consensus algo
+
+<!-- slide -->
+###### Vault
+- Interface to facts/states
+- Can query via RPC/REST or JDBC
+
+---
+###### Oracle
+- Provides external data for smart contracts in a deterministic manner
+    - kind of milestoned by Corda nodes 
+
+<!-- slide -->
+
+###### Corda Node
+![](https://docs.corda.net/_images/node-architecture.png)
+
+<!-- slide -->
+
+**Corda Node**
+- JVM processes
+- Provides interface for RPC/REST and Gossip with other nodes
+- Hosting service for CorDapps
+- Upgrading contracts
+
+<!-- slide -->
+
+![](https://docs.corda.net/_images/vault.png)
+
+<!-- slide -->
+###### End to End Flow ==TODO==
+- Pub sub
+- What to store and when/where
+- Callbacks on new data
+- Scalability
+- Data Pruning??? - not possible
+
+<!-- slide -->
+# Others
+- [Ardor](https://www.radixdlt.com/) - from NXT platform
+    - very good features like pruning
+    - but is hosted
+- [Peaq](https://peaq.io/) (under development)
+- [Quorum](https://www.goquorum.com/) - from JPMC
+- [RadixDLT](https://www.radixdlt.com/) - not opensource
+<!-- slide -->
+
