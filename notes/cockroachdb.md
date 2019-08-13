@@ -1,3 +1,17 @@
+---
+presentation:
+    center: false
+#   .reveal p {
+#     text-align: left;
+#   }
+#   .reveal ul {
+#     display: block;
+#   }
+#   .reveal ol {
+#     display: block;
+#   }
+---
+<!-- slide -->
 [TOC]
 
 # CockroachDB
@@ -61,3 +75,72 @@
 
 ### Notables
 - Documentation is good
+
+
+
+## Presentation points
+
+<!-- slide -->
+
+# ![CockroachDB](https://portal.cloudclusters.io/media/product_detailed_logo/cockroachdb_kaJLLQh.png)
+###### (based on Google Spanner DB)
+- [Website](https://www.cockroachlabs.com/)
+- [Design doc](https://github.com/cockroachdb/cockroach/blob/master/docs/design.md)
+- Google Spanner - https://cloud.google.com/spanner/
+
+<!-- slide -->
+
+### Design Goals
+- Symmetric deployment / one binary
+- Distributed transactions with strong consistency guarantees
+- SQL interface (only) - PostgreSQL compliant
+- Horizontal scaling
+- Automatic repair & replication (like hdfs)
+- Lock-free read and writes (w/ snapshot isolation)
+    - reads can continue against cached schema
+    - uses MVCC while reading
+
+<!-- slide -->
+
+### Architecture
+- Distributed key-value store (not columnar)
+- Can handle disk, server/node, datacenter, region failure
+- Data is stored in "Ranges" (similar to hdfs blocks)
+    - Ranges - RocksDB
+    - Range is replicated 3x (default)
+    - Range has lease and leaseholder
+    - Raft consensus while replicating ranges
+- Nodes talk to each other via gossip protocol
+```mermaid
+graph LR
+    Node --> Stores;
+    Stores --> Range Replica;
+```
+- Admin UI with lot of metric
+
+
+<!-- slide -->
+![Architecture](https://raw.githubusercontent.com/cockroachdb/cockroach/master/docs/media/architecture.png)
+
+<!-- slide -->
+### Nice/Stand-out Features
+- Data Pinning to a region
+    - such that data is stored in a particular region but can still be queried from other regions
+    - can work at key-level
+- Dist-SQL - query computation with data locality
+- As-Of queries supported by versioned key-value
+    - Older values are garbage collected
+- Dynamic scaling - add nodes dynamically and it will manage itself
+    - Hardware migration/upgrades with zero downtime (on paper)
+    - Can run on cloud - AWS, Google, Azure
+- Automatic rebalancing of ranges
+- SSL connection
+- Backup to S3 (or compliant)
+    - snapshot
+    - incremental
+
+<!-- slide -->
+<!-- slide -->
+<!-- slide -->
+<!-- slide -->
+<!-- slide -->
